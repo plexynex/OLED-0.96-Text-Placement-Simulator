@@ -428,42 +428,19 @@
             const method = usePrintln ? 'println' : 'print';
             const textContent = currentText.includes('"') ? `F("${currentText}")` : `"${currentText}"`;
             
-            const code = `#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
-
-void setup() {
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
-  display.clearDisplay();
-  
-  display.setTextSize(${currentSize});
-  display.setCursor(${currentX}, ${currentY});
-  display.${method}(${textContent});
-  
-  display.display();
-}
-
-void loop() {
-  // Your code here
-}`;
+            const code = `
+                display.setTextSize(${currentSize});
+                display.setCursor(${currentX}, ${currentY});
+                display.${method}(${textContent});
+            `;
             
             arduinoCode.textContent = code;
             codeContainer.style.display = 'block';
             
             // Highlight syntax (simplified)
             arduinoCode.innerHTML = arduinoCode.innerHTML
-                .replace(/#include/g, '<span style="color: #c678dd;">#include</span>')
-                .replace(/void/g, '<span style="color: #61afef;">void</span>')
-                .replace(/setup/g, '<span style="color: #e06c75;">setup</span>')
-                .replace(/loop/g, '<span style="color: #e06c75;">loop</span>')
-                .replace(/#define/g, '<span style="color: #c678dd;">#define</span>')
-                .replace(/Adafruit_SSD1306/g, '<span style="color: #e06c75;">Adafruit_SSD1306</span>')
-                .replace(/display/g, '<span style="color: #d19a66;">display</span>')
-                .replace(/[0-9]+/g, '<span style="color: #d19a66;">$&</span>');
+            .replace(/display/g, '<span style="color: #d19a66;">display</span>')
+            
         }
         
         function copyToClipboard() {
