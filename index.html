@@ -432,6 +432,7 @@
                 display.setTextSize(${currentSize});
                 display.setCursor(${currentX}, ${currentY});
                 display.${method}(${textContent});
+                display.display();
             `;
             
             arduinoCode.textContent = code;
